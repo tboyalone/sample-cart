@@ -15,15 +15,18 @@ card.forEach(
         plusBtn.addEventListener('click', () => {
             qtyItem++;
             qtyElement.textContent = qtyItem;
+            calc();
         })
         minusBtn.addEventListener('click', () => {
             if (qtyItem > 0) {
                 qtyItem--;
                 qtyElement.textContent = qtyItem;
+                calc();
             }
         })
         delButton.addEventListener('click', () => {
                 product.remove();
+                calc();
             }
         )
         heart.addEventListener('click', () => {
@@ -37,37 +40,18 @@ card.forEach(
     }
 )
 
-//const item = document.querySelectorAll(".add-btn");
-//console.log(item);
-//    item.forEach((el) => {
-//        el.addEventListener("click", () => {
-//            for (let i = 0; i < qtyElement.length; i++) {
-//                const element = qtyElement[i];
-//            }
-//            addNumber += 1;
-//            element.innerText = addNumber;
-//            console.log("Ok");
-//    }); 
-//});
-//console.log(item);
-
-//function removeFromCart() {
-//    if (document.querySelector(".quantity").innerText > 0) {
-//        addNumber -= 1;
-//        document.querySelector(".quantity").innerText = addNumber;
-//    }
-//}
-//function toggleHeart() {
-//    const heart = document.querySelector(".heart");
-//    heart.classList.toggle("active");
-//    if (heart.classList.contains("active")) {
-//        heart.style.color = "red";
-//    } else {
-//        heart.style.color = "black";
-//    }
-//}
-
-//function removeProduct() {
-//    const products = document.querySelector(".product");
-//    products.remove();
-//}
+function calc(){
+var totalPrice = 0;
+var totalPriceElement = document.querySelector('.total');
+var priceElements = document.querySelectorAll('.card');
+priceElements.forEach((priceElement) => {
+    var unitPriceElement = priceElement.querySelector('.unit-price');
+    var price = parseFloat(unitPriceElement.textContent.replace('$', ''));
+    var qtyElement = priceElement.closest('.card').querySelector('.quantity');
+    var qty = parseInt(qtyElement.textContent);
+    totalPrice += price * qty;
+}); 
+totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+// This code is for a shopping cart functionality where users can add, remove, and update quantities of products.
+// It also includes a heart icon to mark favorite products and calculates the total price of items in the cart.
+}
